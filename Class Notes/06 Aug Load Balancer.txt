@@ -9,7 +9,7 @@ sub domain
 
 from were be bought domain name is called ---registar service (Route 53)
 ---------------------------------Record Set---------------------------
-1.IPV4 A Record
+1.IPV4 A    Record
 
 2.APV6 AAAA Record
 
