@@ -1,0 +1,51 @@
+ssh-keygen
+cd .ssh
+ls -lart
+cat id_ed25519.pub
+ssh ubuntu@172.31.84.32
+ssh ubuntu@172.31.83.44
+cd ..
+sudo apt-get update
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt install ansible
+   
+   
+ansible all -m shell -u ubuntu -a "sudo apt-get update && sudo apt-get upgrade -y"
+  
+ansible 172.31.84.32 -m apt -b -a "name=docker.io state=absent"
+
+mkdir inventory
+cd inventory/
+vi inventory.txt
+ansible vms -m ping -i inventtory.txt
+ansible vms -m ping -i inventory.txt
+ansible all --list-host
+ansible all -m shell -a 'lsb_release -a'
+ansible all -m shell -a uptime
+ansible all -m shell -a 'df -Th'
+ansible all -m shell -u ubuntu -a "sudo apt-get update && sudo apt-get upgrade -y"
+ansible all -m apt -a "name=docker.io state=present update_cache=yes" -b
+ansible all -m command -a "docker --version"
+ansible 172.31.84.44 -m apt -s -a "name=docker.io state=absent"
+ansible 172.31.84.44 -m apt -b -a "name=docker.io state=absent"
+ansible 172.31.84.32 -m apt -b -a "name=docker.io state=absent"
+ansible all -m command -a "docker --version"
+ansible all -m apt -a "name=apache2 state=present" -b
+ansible all -m user -a "name=user01" -b
+ansible all -m user -a "name=user02 password=123456" -b
+ansible all -m user -a "name=user02 state=absent" -b
+ansible all -m group -a "name=group01 gid=02 state=present" -b
+ansible all -m group -a "name=group01 gid=12 state=present" -b
+ansible all -m group -a "name=group01 gid=1243 state=present" -b
+ansible all -m user -a "name=user03 uid=1200 home=/home/ubuntu/user03 group=group01 state=presnet" -b
+ansible all -m user -a "name=user03 uid=1200 home=/home/ubuntu/user03 group=group01 state=present" -b
+ansible all -m user -a "name=user03 uid=1200 home=/home/ubuntu/user03 group=group01 state=absent" -b
+ansible all -m group -a "name=group01  state=absent" -b
+
+ansible 172.31.83.44 -m apt -a "name=mysql-server state=present" -b
+ansible 172.31.83.44 -m apt -a "name=python3-mysqldb state=present" -b
+ansible 172.31.83.44 -m shell -a "mysql --version"  
+ansible 172.31.83.44 -m mysql_db -a "name=sampledb state=present" -b
+ansible 172.31.83.44 -m mysql_db -a "state=dump name=all target=/tmp/mydump.sql" -b
+ansible 172.31.83.44 -m mysql_db -a "name=sampledb state=absent" -b
+ansible 172.31.83.44 -m mysql_db -a "name=sampledb state=import target=/tmp/mydump.sql" -b
