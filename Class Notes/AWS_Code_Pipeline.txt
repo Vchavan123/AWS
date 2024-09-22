@@ -1,0 +1,84 @@
+Source --------> destination
+
+s3 ---------> s3
+Git--------> S3
+S3--------> Ec2
+Git ----->Ec2
+
+
+
+Development tools option is used for these operation
+
+code commit (Source code repo) is like as Git . In AWS we call it as code commit
+
+whenever Destination is s3 we can directly use code pipeline. because s3 itself will act as a deployment provider
+
+when our destination is Ec2 we have to use explicit deployment provider
+
+source ----->code deploy---->code build-------->code pipeline-->Ec2
+
+
+Scenario S3 ---> S3
+
+-Create 2 buckets
+    1. Source  - unable bucket versioning
+	2. Destination - unable ACl , Static website hosting unable
+-Make a zip of source file and upload it in source bucket
+- Devlopment Tools ---> Pipeline -> Create Pipeline
+    name , role , qued 
+    provide Source , object name , deployment provider , destination bucket name , canned ACL(Public read) 	
+	
+Scenario Git(Code Commit) ---> S3
+
+we access this from terminal
+for communication between git and terminal it must be authorised there are two ways of authorisation
+ 1. Https 
+ 2. ssh
+ 
+ - Development Tools ---> Code commit ---> Repositories
+    Create Repo ---> clone https 
+	launch one instance (Allow Http) 
+	login into instance
+	- Sudo yum install git -yum
+	- mkdir deployments
+	- vi index.html & error.html
+	- git init
+	- git add .
+	- git commit -m "as"
+	- git remote add origin <url of repo from repo --> clone Https
+	- git push origin master
+	- provide user name (iam ---> craete user ---give access --- go to users secuirity crendentials ---     HTTPS   git crendentials for aws codecommit ---> generate crendentials
+    -  Go to Pipelines
+	create pipeline --- source (aws codecommit) -- deployment provider(aws S3)
+
+Scenario S3----> EC2
+  
+  we will use CFT for creation of Ec2 
+  
+  upload Cf template in s3 -- copy this path and add in below command 
+
+  aws cloudformation create-stack --stack-name CodeDeployDemoStack \
+--template-url http://s3-eu-west-1.amazonaws.com/cftemplates/CF_Template.json --parametersParameterKey=InstanceCount,ParameterValue=1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyPairName,ParameterValue=irkp ParameterKey=OperatingSystem,ParameterValue=Linux ParameterKey=SSHLocation,ParameterValue=0.0.0.0/0 ParameterKey=TagKey,ParameterValue=Name ParameterKey=TagValue,ParameterValue=CodeDeployDemo --capabilities CAPABILITY_IAM
+
+login to instance
+
+sudo yum update -y
+sudo yum install ruby -y
+sudo yum install wget
+cd /home/ec2-user
+wget https://aws-codedeploy-eu-central-1.s3.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+sudo service codedeploy-agent status 
+
+upload source in s3
+
+goto code deploy---- create applicatiom
+create deployment group
+
+goto code pipeline
+create Pipeline
+Deployment provider Code Deploy
+
+
+ 
