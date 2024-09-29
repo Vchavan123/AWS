@@ -1,0 +1,37 @@
+
+AWS syllabus
+
+26-JUL-2024--->Introduction (AWS account)
+29-JUL-2024--->IAM 
+30-JUL-2024--->S3
+31-JUL-2024--->S3
+01-AUG-2024--->EC2 And EBS
+02-AUG-2024--->shell Commands And Web Server
+05-AUG-2024--->Shell scripting 
+06-AUG-2024--->Route53 And Load Balancer
+08-AUG-2024--->Load Balancer
+09-AUG-2024--->Route53 And Load Balancer
+13-Aug-2024--->Autoscalling And SNS
+19-AUG-2024--->Volume And Snapshots
+20-AUG-2024--->python Scripting 
+21-AUG-2024--->Lambda
+23-AUG-2024--->Lambda
+26-AUG-2024--->Lambda Tasks
+27-AUG-2024--->VPC
+29-AUG-2024--->VPC
+30-AUG-2024--->Cloud Formation 
+03-SEP-2024--->Cloud Formation And Terraform
+04-SEP-2024--->Terraform
+05-SEP-2024--->Terraform
+09-SEP-2024--->Terraform tfstate Backend and Modules
+10-SEP-2024--->RDS 
+11-SEP-2024--->DMS (DATABASE MOGRETION SERVICE) Redshift
+12-SEP-2024--->Ansible
+13-SEP-2024--->Ansible
+18-SEP-2024--->Ansible and KMS
+19-SEP-2024--->AWS Pipeline
+20-SEP-2024--->Aws Pipeline
+23-SEP-2024--->Volume Snapshots and EFS 
+
+
+

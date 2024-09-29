@@ -1,0 +1,84 @@
+Founded in 2008 ---- Opscode (Previous name) ---- > Chef
+
+     ========== INTRO =======
+	 
+- Chef is Ruby based
+- Comes with two deployment models 
+	1. Chef Zero       --- used for deployment testing and poc
+	2. Server Client   --- used in production use case
+- Support multiple OS
+- Why chef?
+   Declarative , consistent delivery , highly scalable , increased prodictivity , simplicity
+- Chef is idompotent
+- Chef is based on poll mechanism 
+
+============= Chef Architecture ========
+
+Divided to three measure sections:
+1. Chef Workstation
+2. Chef server
+3. Chef Client/node
+
+- CHEF Workstation
+	is local devlopment platform . used to create , test ,apply , upload chef code
+	chef workstation pushes the code to chef server
+	
+- CHEF Server
+    is a node having chef server software installed and configured
+    this machine is responsible for managing the chef code 
+  - Pre-requisites for chef server
+		System reuirements -- 4vCPU 4-8 Gb ram, no windows suppourt , Firewall setting -- port 80 | 443 , Time sync
+	
+- CHEF Client/node
+      chef client communicate with chef server for configuration details. 	
+	  
+===============================================================================================================
+Knife bootstrap methos
+    a bootstrap is a process of installing chef client software on a remote system without manually login.
+    for this that node must have access to the chef website to be able to download chef client package
+
+    chef installer detect the client os and install all needed softwares and create a unique path/directory on client node 
+    
+    knife bootstrap <IP> -N <HostName> --ssh-user <UserName> --sudo --identity-file <Priavte key>	
+============================================================================================================
+	
+Chef Architecture
+1. Chef workstation
+    Create , validate , apply
+	chef software installed  CHEFDk (Chef deployment Kit)
+	
+	Chef workstation communicate with chef server in secured manner
+	to push code the connection is established using RSA Key-pair
+	
+	chef workstation use the utility called knife to communicate with chef server. For this the knife configuration file must be updated with the info about chef server and the keys used for authentecation.
+	knife is command line utility which is used to push the devloped code to server 
+
+2. Chef Nodes
+    -chef nodes are any m/c physical/virtual/cloud  that is under management of chef and has the chef clients
+	software installed
+	-chef nodes and chef server is use RSA Key-pair for communication
+	-Every time chef client runs it gathers the info about the node with the dedicated utility called OHAI and
+	then established connectivity with server once the connection is authentecation clients get a copy of information of the node.
+	-after every chef client run nodes upload the current state of node to server
+
+=============================================================================================================ChChef Terminologies
+  Resources---->Recipe--->Cookbook---->Runlist
+
+  Resource Syntax
+   
+    type 'name' do
+       attribute 'value'
+       action :type_of_action
+    end 	   
+	
+==============================================================================================================	
+commands
+  cookstyle <Recipe file >   ----- following the best practices . error / validate
+  chef-client --local-mode --why-run <Recipe file >   --- smoke test
+  chef-client --local-mode  <Recipe file >            ---- actual run
+  chef genrate cookbook <Name_of_cookbook>            ---- to create cookbook skeleton
+  
+	
+	
+	
+
